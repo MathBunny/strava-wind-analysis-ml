@@ -1,6 +1,5 @@
 import numpy as np
 from sklearn import linear_model
-from sklearn.metrics import mean_squared_error, r2_score
 
 def modelRegression(data):
     # speeds = np.fromstring(str, dtype=float, sep="|")
@@ -30,11 +29,10 @@ def modelRegression(data):
     print(' y = {0} * x + {1}'.format(m, b))
 
     # Create line of best fit
-
     ans = []
     for x in range(0, len(y_arr)):
         ans.append(int(m[0] * x + b))
 
     return '|'.join(str(v) for v in ans)
 
-modelRegression("1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1")
+# modelRegression("1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1")

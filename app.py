@@ -1,3 +1,4 @@
+from supervised import linear_regression as linReg
 from flask import Flask
 app = Flask(__name__)
 
@@ -11,4 +12,4 @@ def page_not_found(error):
 
 @app.route("/get/linear-regression/<string:data>")
 def compute(data):
-  return data
+  return linReg.modelRegression(data)
