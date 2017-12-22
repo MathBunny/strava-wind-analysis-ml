@@ -31,7 +31,7 @@ def modelRegression(data):
     # Create line of best fit
     ans = []
     for x in range(0, len(y_arr)):
-        ans.append(int(m[0] * x + b))
+        ans.append(float(m[0] * x + b))
 
     return '|'.join(str(v) for v in ans)
 
