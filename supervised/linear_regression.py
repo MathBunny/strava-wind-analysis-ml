@@ -1,19 +1,15 @@
-import numpy as np
 from sklearn import linear_model
 
 def modelRegression(data):
     # speeds = np.fromstring(str, dtype=float, sep="|")
     y_arr = data.split('|')
 
-    # Split the data into training/testing sets
     x_arr = []
     for x in range (0, len(y_arr)):
         x_arr.append(x)
 
     speeds_x_train = x_arr
     speeds_y_train = y_arr
-    #speeds_x_test = x_arr[-20:]
-    #speeds_y_test = speeds[-20:]
 
     speeds_x_train = map(lambda x: [x], speeds_x_train)
     speeds_y_train = map(lambda x: [x], speeds_y_train)
@@ -26,7 +22,6 @@ def modelRegression(data):
 
     m = regr.coef_[0]
     b = regr.intercept_
-    print(' y = {0} * x + {1}'.format(m, b))
 
     # Create line of best fit
     ans = []

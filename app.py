@@ -1,10 +1,10 @@
-from supervised import linear_regression as linReg
 from flask import Flask
+from supervised import linear_regression as linReg
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
-  return "Welcome to the Strava Wind Analysis Machine Learning Backend."
+    return "Welcome to the Strava Wind Analysis Machine Learning Backend."
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -12,4 +12,4 @@ def page_not_found(error):
 
 @app.route("/get/linear-regression/<string:data>")
 def compute(data):
-  return linReg.modelRegression(data)
+    return linReg.modelRegression(data)
