@@ -23,11 +23,11 @@ def modelRegression(data):
     m = regr.coef_[0]
     b = regr.intercept_
 
-    # Create line of best fit
+    # Create line of best fit, y = mx + b
     ans = []
     for x in range(0, len(y_arr)):
         ans.append(float(m[0] * x + b))
 
     return '|'.join(str(v) for v in ans)
 
-# modelRegression("1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1")
+# print modelRegression("1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1")
