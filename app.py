@@ -1,5 +1,6 @@
 from flask import Flask
 from supervised import linear_regression as linReg
+from unsupervised import kmeans_rides as kmeansRides
 app = Flask(__name__)
 
 @app.route("/")
@@ -11,5 +12,10 @@ def page_not_found(error):
     return "Error: Not Found!", 404
 
 @app.route("/get/linear-regression/<string:data>")
-def compute(data):
+def linRegression(data):
     return linReg.modelRegression(data)
+
+@app.route("/get/kmeans-rides-clustering/<string:data>")
+def kmeansClustering(data):
+    param = data.split('&')
+    return kmeansRides.clusterActivities(param[0], int(param[1]))
