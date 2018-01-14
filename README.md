@@ -5,7 +5,7 @@ The purpose of this RESTful API is to perform machine learning analytics on cycl
 
 So far, this server only provides basic ordinary linear regression for time-speed graphs and clustering using k-means for aggregate ride speed-distance graphs. More features will be added later. 
 
-Please consult the [official Strava Wind Analysis repository](https://github.com/MathBunny/strava-wind-analysis) for the site itself.
+Please consult the official [Strava Wind Analysis repository](https://github.com/MathBunny/strava-wind-analysis) for the site itself.
 
 
 ## Running the server
