@@ -18,7 +18,7 @@ def linRegression(data):
 @app.route("/get/wind-regression/<string:data>")
 def windRegression(data):
     param = data.split('&')
-    return linReg.windRegression(param[0], param[1])
+    return linReg.windRegression(param[0], param[1], param[2])
 
 @app.route("/get/kmeans-rides-clustering/<string:data>")
 def kmeansClustering(data):

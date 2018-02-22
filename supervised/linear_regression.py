@@ -61,14 +61,17 @@ def regularizeData(speedData):
     return speeds
 
 
-def windRegression(speedData, correlationData):
+def windRegression(speedData, correlationData, candidate):
     # Run linear regression on speed data to regularize data
     speeds = regularizeData(speedData)
+    correlations = correlationData.split('|')
+    # Schwartzian Transform
+    correlations, speeds = zip(*sorted(zip(correlations, speeds)))
+    correlations, speeds = (list(t) for t in zip(*sorted(zip(list1, list2))))
+    
     
     # Run linear regression on secondary data
     return "Feature Unavailable for Now"
-
-
 
 
 # print modelRegression("1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1")
