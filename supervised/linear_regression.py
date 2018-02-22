@@ -1,7 +1,6 @@
 from sklearn import linear_model
 
 def modelRegression(data):
-    # speeds = np.fromstring(str, dtype=float, sep="|")
     y_arr = data.split('|')
 
     x_arr = []
@@ -29,5 +28,50 @@ def modelRegression(data):
         ans.append(float(m[0] * x + b))
 
     return '|'.join(str(v) for v in ans)
+
+
+def regularizeData(speedData):
+    # Step #1: Run linear regression on speed data to regularize data
+    y_arr = speedData.split('|')
+
+    x_arr = []
+    for x in range (0, len(y_arr)):
+        x_arr.append(x)
+
+    speeds_x_train = x_arr
+    speeds_y_train = y_arr
+
+    speeds_x_train = map(lambda x: [x], speeds_x_train)
+    speeds_y_train = map(lambda x: [x], speeds_y_train)
+
+    regr = linear_model.LinearRegression()
+    regr.fit(speeds_x_train, speeds_y_train)
+
+    m = regr.coef_[0]
+    b = regr.intercept_
+
+    speeds = map(lambda x: float(x), speedData.split('|'))
+
+    # Step #2: Regularize data
+    for x in range(0, len(speeds)):
+        val = x * m + b
+        diff = b - val
+        speeds[x] = speeds[x] + diff
+
+    return speeds
+
+
+def windRegression(speedData, correlationData, candidate):
+    # Run linear regression on speed data to regularize data
+    speeds = regularizeData(speedData)
+    correlations = correlationData.split('|')
+    # Schwartzian Transform
+    correlations, speeds = zip(*sorted(zip(correlations, speeds)))
+    correlations, speeds = (list(t) for t in zip(*sorted(zip(list1, list2))))
+    
+    
+    # Run linear regression on secondary data
+    return "Feature Unavailable for Now"
+
 
 # print modelRegression("1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1")
