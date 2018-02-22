@@ -47,4 +47,5 @@ The server should be listening on `http://127.0.0.1:5000/`
 You can run tests as follows:
 ```shell
 python -m StravaWindAnalysisML.test.test_linear_regression
+python -m StravaWindAnalysisML.test.test_rides_clustering
 ```
