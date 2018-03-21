@@ -49,3 +49,12 @@ You can run tests as follows:
 python -m StravaWindAnalysisML.test.test_linear_regression
 python -m StravaWindAnalysisML.test.test_rides_clustering
 ```
+
+## Utilities
+
+You can also run several utilities included in the `/utils` folder. You should first create a file called `config.py` in the root of the `utils` folder:
+```python
+ACCESS_TOKEN=xyz
+```
+
+Where `xyz` = your access token. You can then invoke the scripts to generate training data for your models quickly!
