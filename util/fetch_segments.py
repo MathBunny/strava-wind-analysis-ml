@@ -31,9 +31,11 @@ def populate_segments():
             continue
         activity_id = str(activity["id"])
         activity_data = json.loads(urllib2.urlopen("https://www.strava.com/api/v3/activities/" + activity_id + "?per_page=200&access_token=" + ACCESS_TOKEN).read())
+        segments_visited = []
         for segment in activity_data["segment_efforts"]:
-            if segment["id"] not in segments:
+            if segment["id"] not in segments_visited:
                 segments.append(segment)
+                segments_visited.append(segment["id"])
 
 
 # output_activities()
