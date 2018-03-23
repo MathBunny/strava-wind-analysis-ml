@@ -1,17 +1,18 @@
+import json
+import urllib2
 from config import *
-import json, ast, urllib2
 
 
 activities = {}
 segments = []
 
 def get_activities(per_page):
-    if per_page == None:
+    if per_page is None:
         per_page = 10
     per_page = str(per_page)
-    contents = urllib2.urlopen("https://www.strava.com/api/v3/athlete/activities?include_all_efforts=true&per_page=" + per_page + "&access_token=" + ACCESS_TOKEN).read()
+    endpoint = "https://www.strava.com/api/v3/athlete/activities?per_page={}&access_token={}"
     global activities
-    activities = json.loads(contents)
+    activities = json.loads(urllib2.urlopen(endpoint.format(per_page,ACCESS_TOKEN)).read())
 
 def output_fields():
     for field in activities[0]:
@@ -22,15 +23,17 @@ def output_activities():
         print activity["name"], activity["id"]
 
 def output_segment_ids():
-    for segment in segments:
-        print segment["id"]
+    print [segment["id"] for segment in segments]
 
 def populate_segments():
     for activity in activities:
-        if activity["type"] != "Ride" or activity["manual"] == True:
+        if activity["type"] != "Ride" or activity["manual"] is True:
             continue
+
         activity_id = str(activity["id"])
-        activity_data = json.loads(urllib2.urlopen("https://www.strava.com/api/v3/activities/" + activity_id + "?per_page=200&access_token=" + ACCESS_TOKEN).read())
+        endpoint = "https://www.strava.com/api/v3/activities/{}/?per_page=200&access_token={}"
+        activity_data = json.loads(urllib2.urlopen(endpoint.format(activity_id, ACCESS_TOKEN)).read())
+
         segments_visited = []
         for segment in activity_data["segment_efforts"]:
             if segment["id"] not in segments_visited:
