@@ -22,4 +22,3 @@ install:
 
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy scipy nose cython scikit-learn
   - source activate test-environment
-  - make all
