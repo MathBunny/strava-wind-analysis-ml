@@ -1,5 +1,6 @@
 import json
 import urllib2
+import math
 from fetch_weather import Weather
 from config import *
 
@@ -64,12 +65,39 @@ def generate_wind_speed_training(datasize, filename):
 
     for x in range(len(segments)):
         segment = segments[x]
-        output_str = "{},{},{},{},{}"
+        output_str = "{},{},{},{},{},{}"
         weather = weather_data[x].split(',')
+
         wind_speed = weather[0]
         wind_bearing = weather[1]
-        file.write(output_str.format(segment['id'], segment['distance'], segment['moving_time'], wind_speed, wind_bearing))
+
+        start_lat = segment['segment']['start_latlng'][0]
+        start_lng = segment['segment']['start_latlng'][1]
+        end_lat = segment['segment']['end_latlng'][0]
+        end_lng = segment['segment']['end_latlng'][1]
+        ride_bearing = calculate_initial_compass_bearing((start_lat, start_lng),(end_lat, end_lng))
+
+        file.write(output_str.format(segment['id'], segment['distance'], segment['moving_time'], ride_bearing, wind_speed, wind_bearing))
     file.close()
+
+def calculate_initial_compass_bearing(pointA, pointB):
+    if (type(pointA) != tuple) or (type(pointB) != tuple):
+        raise TypeError('Only tuples are supported as arguments')
+
+    lat1 = math.radians(pointA[0])
+    lat2 = math.radians(pointB[0])
+
+    diffLong = math.radians(pointB[1] - pointA[1])
+
+    x = math.sin(diffLong) * math.cos(lat2)
+    y = math.cos(lat1) * math.sin(lat2) - (math.sin(lat1) * math.cos(lat2) * math.cos(diffLong))
+
+    initial_bearing = math.atan2(x, y)
+
+    initial_bearing = math.degrees(initial_bearing)
+    compass_bearing = (initial_bearing + 360) % 360
+
+    return compass_bearing
 
 def main():
     # output_activities()
