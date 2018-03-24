@@ -48,11 +48,38 @@ def generate_segment_latlng_time():
         ans.append(res.format(segment['segment']['start_latlng'][0], str(segment['segment']['start_latlng'][1]), str(segment['start_date'])))
     return ans
 
-# output_activities()
-get_activities(20)
-populate_segments()
-# output_segment_ids()
-print generate_segment_latlng_time()
-w = Weather()
-print w.make_request('43.747194,-79.391819,2016-06-05T00:28:22')
-w.close()
+def generate_wind_speed_training(datasize, filename):
+    get_activities(datasize)
+    populate_segments()
+
+    weather_queries = generate_segment_latlng_time()
+    weather_data = []
+    w = Weather()
+
+    for query in weather_queries:
+        weather_data.append(w.make_request(query))
+    w.close()
+
+    file = open(filename, "w")
+
+    for x in range(len(segments)):
+        segment = segments[x]
+        output_str = "{},{},{},{},{}"
+        weather = weather_data[x].split(',')
+        wind_speed = weather[0]
+        wind_bearing = weather[1]
+        file.write(output_str.format(segment['id'], segment['distance'], segment['moving_time'], wind_speed, wind_bearing))
+    file.close()
+
+def main():
+    # output_activities()
+    get_activities(20)
+    populate_segments()
+    # output_segment_ids()
+    print generate_segment_latlng_time()
+    w = Weather()
+    print w.make_request('43.747194,-79.391819,2016-06-05T00:28:22')
+    w.close()
+
+generate_wind_speed_training(10, 'training.txt')
+
