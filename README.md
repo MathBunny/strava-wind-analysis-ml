@@ -55,6 +55,7 @@ python -m StravaWindAnalysisML.test.test_rides_clustering
 You can also run several utilities included in the `/utils` folder. You should first create a file called `config.py` in the root of the `utils` folder:
 ```python
 ACCESS_TOKEN=xyz
+WEATHER_ACCESS_TOKEN=abc
 ```
 
-Where `xyz` = your access token. You can then invoke the scripts to generate training data for your models quickly!
+Where `xyz` / `abc` = your access tokens respectively. You can then invoke the scripts to generate training data for your models quickly!
