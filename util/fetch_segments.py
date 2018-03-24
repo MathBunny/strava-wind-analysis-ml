@@ -1,7 +1,7 @@
 import json
 import urllib2
+from fetch_weather import Weather
 from config import *
-
 
 activities = {}
 segments = []
@@ -36,12 +36,23 @@ def populate_segments():
 
         segments_visited = []
         for segment in activity_data["segment_efforts"]:
+            # For consistency purposes, keep only unique segment efforts
             if segment["id"] not in segments_visited:
                 segments.append(segment)
                 segments_visited.append(segment["id"])
 
+def generate_segment_latlng_time():
+    ans = []
+    for segment in segments:
+        res = '{},{},{}'
+        ans.append(res.format(segment['segment']['start_latlng'][0], str(segment['segment']['start_latlng'][1]), str(segment['start_date'])))
+    return ans
 
 # output_activities()
 get_activities(20)
 populate_segments()
-output_segment_ids()
+# output_segment_ids()
+print generate_segment_latlng_time()
+w = Weather()
+print w.make_request('43.747194,-79.391819,2016-06-05T00:28:22')
+w.close()
