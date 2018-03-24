@@ -64,14 +64,10 @@ def regularizeData(speedData):
 def windRegression(speedData, correlationData, candidate):
     # Run linear regression on speed data to regularize data
     speeds = regularizeData(speedData)
-    print speeds
     correlations = correlationData.split('|')
     # Schwartzian Transform
     correlations, speeds = zip(*sorted(zip(correlations, speeds)))
     correlations, speeds = (list(t) for t in zip(*sorted(zip(correlations, speeds))))
-
-    print correlations
-    print speeds
 
     correlation_x_train = correlations
     speeds_y_train = speeds
