@@ -101,7 +101,7 @@ def calculate_initial_compass_bearing(pointA, pointB):
 
 def main():
     # output_activities()
-    get_activities(20)
+    get_activities(14)
     populate_segments()
     # output_segment_ids()
     print generate_segment_latlng_time()
@@ -109,5 +109,5 @@ def main():
     print w.make_request('43.747194,-79.391819,2016-06-05T00:28:22')
     w.close()
 
-generate_wind_speed_training(10, 'training.txt')
+generate_wind_speed_training(20, 'training.txt')
 
