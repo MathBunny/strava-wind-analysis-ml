@@ -65,7 +65,7 @@ def generate_wind_speed_training(datasize, filename):
 
     for x in range(len(segments)):
         segment = segments[x]
-        output_str = "{},{},{},{},{},{}"
+        output_str = "{},{},{},{},{},{},{}"
         weather = weather_data[x].split(',')
 
         wind_speed = weather[0]
@@ -75,9 +75,11 @@ def generate_wind_speed_training(datasize, filename):
         start_lng = segment['segment']['start_latlng'][1]
         end_lat = segment['segment']['end_latlng'][0]
         end_lng = segment['segment']['end_latlng'][1]
+        avg_grade = segment['segment']['average_grade']
+        
         ride_bearing = calculate_initial_compass_bearing((start_lat, start_lng),(end_lat, end_lng))
 
-        file.write(output_str.format(segment['id'], segment['distance'], segment['moving_time'], ride_bearing, wind_speed, wind_bearing))
+        file.write(output_str.format(segment['id'], segment['distance'], segment['moving_time'], ride_bearing, avg_grade, wind_speed, wind_bearing))
     file.close()
 
 def calculate_initial_compass_bearing(pointA, pointB):
