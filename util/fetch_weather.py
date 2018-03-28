@@ -21,6 +21,8 @@ class Weather (object):
         if key in self._cache:
             return self._cache[key]
 
+        print 'Cache miss for ' + key
+
         date_str = key.split(',')[2]
         date_obj = dateutil.parser.parse(date_str)
         hour = date_obj.hour
