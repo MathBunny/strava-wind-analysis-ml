@@ -1,13 +1,14 @@
 import math
 import numpy as np
-from sklearn.linear_model import LinearRegression
+# from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
 from sklearn import metrics    
 from coordinate_utils import *
 
 training_data = []
 cross_validation = []
 test_data = []
-regressor = LinearRegression() #normalize=True
+regressor = Ridge(alpha=.7) # normalize=True
 
 def load_data():
     file = open('training.txt', 'r')
@@ -43,7 +44,6 @@ def get_xy_vals(arr):
         speed = (distance * 3.6) / moving_time
         features = []
         features.append(distance)
-        features.append(wind_speed)
 
         # features.append(ride_vector[0])
         # features.append(ride_vector[1])
@@ -54,7 +54,9 @@ def get_xy_vals(arr):
         dy = abs(ride_vector[1] + wind_vector[1])
         add = abs(ride_vector[0]) + abs(ride_vector[1])
 
-        features.append(dx + dy - add)
+        # features.append(wind_speed)
+        # features.append(dx + dy - add)
+        features.append((dx + dy - add) * wind_speed)
         features.append(avg_grade)
 
         X_train.append(features)
@@ -79,11 +81,11 @@ def test():
     print 'Coefficients: ', regressor.coef_
     print 'Intercept: ', regressor.intercept_
 
-    for x in range(len(X_test)):
-        print y_pred[x], 'vs', y_test[x]
+    # for x in range(len(X_test)):
+        # print y_pred[x], 'vs', y_test[x]
 
-    #for x in range(len(X_test)):
-       # print X_test[x][1]
+    # for x in range(len(X_test)):
+        # print X_test[x][1], X_test[x]
 
 load_data()
 train()
