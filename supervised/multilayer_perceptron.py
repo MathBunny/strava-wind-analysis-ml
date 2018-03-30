@@ -1,14 +1,14 @@
 import math
 import numpy as np
-# from sklearn.linear_model import LinearRegression
-from sklearn.linear_model import Ridge
+from sklearn.neural_network import MLPClassifier
 from sklearn import metrics    
 from coordinate_utils import *
 
 training_data = []
 cross_validation = []
 test_data = []
-regressor = Ridge(alpha=.7) # normalize=True
+clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
+                     hidden_layer_sizes=(5, 3), random_state=1)
 
 def load_data():
     file = open('training.txt', 'r')
@@ -53,6 +53,8 @@ def get_xy_vals(arr):
         dx = abs(ride_vector[0] + wind_vector[0])
         dy = abs(ride_vector[1] + wind_vector[1])
         add = abs(ride_vector[0]) + abs(ride_vector[1])
+
+        # features.append(wind_speed)
         
         features.append((dx + dy - add) * wind_speed)
 
@@ -69,20 +71,20 @@ def train():
     X_train = xy_vals[0]
     y_train = xy_vals[1]
 
-    regressor.fit(X_train, y_train)
+    clf.fit(X_train, y_train)
 
 def test():
     xy_vals = get_xy_vals(test_data)
     X_test = xy_vals[0]
     y_test = xy_vals[1]
-    y_pred = regressor.predict(X_test)
+    y_pred = clf.predict(X_test)
 
     print 'Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)) 
     print 'Coefficients: ', regressor.coef_
     print 'Intercept: ', regressor.intercept_
 
-    for x in range(len(X_test)):
-        print y_pred[x], 'vs', y_test[x]
+    #for x in range(len(X_test)):
+        #print y_pred[x], 'vs', y_test[x]
 
     # for x in range(len(X_test)):
         # print X_test[x][1], X_test[x]
