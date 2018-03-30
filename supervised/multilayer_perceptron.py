@@ -1,13 +1,13 @@
 import math
 import numpy as np
-from sklearn.neural_network import MLPClassifier
+from sklearn.neural_network import MLPRegressor
 from sklearn import metrics    
 from coordinate_utils import *
 
 training_data = []
 cross_validation = []
 test_data = []
-clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
+clf = MLPRegressor(solver='lbfgs', alpha=1e-5,
                      hidden_layer_sizes=(5, 3), random_state=1)
 
 def load_data():
@@ -80,11 +80,9 @@ def test():
     y_pred = clf.predict(X_test)
 
     print 'Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)) 
-    print 'Coefficients: ', regressor.coef_
-    print 'Intercept: ', regressor.intercept_
 
-    #for x in range(len(X_test)):
-        #print y_pred[x], 'vs', y_test[x]
+    for x in range(len(X_test)):
+        print y_pred[x], 'vs', y_test[x]
 
     # for x in range(len(X_test)):
         # print X_test[x][1], X_test[x]
