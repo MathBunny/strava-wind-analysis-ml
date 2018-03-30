@@ -1,14 +1,22 @@
 import math
 import numpy as np
 from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import StandardScaler
 from sklearn import metrics    
 from coordinate_utils import *
 
 training_data = []
 cross_validation = []
 test_data = []
-clf = MLPRegressor(solver='lbfgs', alpha=1e-5,
-                     hidden_layer_sizes=(5, 3), random_state=1)
+clf = MLPRegressor(hidden_layer_sizes=(200, ), 
+    activation='relu', solver='adam', alpha=0.0001, 
+    batch_size='auto', learning_rate='constant', 
+    learning_rate_init=0.001, power_t=0.5, max_iter=50000, 
+    shuffle=True, random_state=None, tol=0.0001, verbose=False,
+     warm_start=False, momentum=0.9, nesterovs_momentum=True,
+      early_stopping=False, validation_fraction=0.1, 
+      beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+scaler = StandardScaler()
 
 def load_data():
     file = open('training.txt', 'r')
@@ -22,7 +30,7 @@ def load_data():
 
     training_data = data[:int(num_lines * 0.7)]
     cross_validation = data[int(num_lines * 0.7):int(num_lines * 0.85)]
-    test_data = data[int(num_lines * 0.7):]
+    test_data = data[int(num_lines * 0.7):] #0.7
 
 def get_xy_vals(arr):
     X_train = []
@@ -45,10 +53,11 @@ def get_xy_vals(arr):
         features = []
         features.append(distance)
 
-        # features.append(ride_vector[0])
-        # features.append(ride_vector[1])
-        # features.append(wind_vector[0])
-        # features.append(wind_vector[1])
+        #features.append(ride_vector[0])
+        #features.append(ride_vector[1])
+        #features.append(wind_vector[0])
+        #features.append(wind_vector[1])
+        #features.append(wind_speed)
 
         dx = abs(ride_vector[0] + wind_vector[0])
         dy = abs(ride_vector[1] + wind_vector[1])
@@ -58,7 +67,6 @@ def get_xy_vals(arr):
         
         features.append((dx + dy - add) * wind_speed)
 
-        # print (dx + dy - add) * wind_speed
         features.append(avg_grade)
 
         X_train.append(features)
@@ -71,21 +79,26 @@ def train():
     X_train = xy_vals[0]
     y_train = xy_vals[1]
 
+    scaler.fit(X_train)
+    X_train = scaler.transform(X_train)
+
     clf.fit(X_train, y_train)
 
 def test():
     xy_vals = get_xy_vals(test_data)
     X_test = xy_vals[0]
     y_test = xy_vals[1]
+    X_test = scaler.transform(X_test)
     y_pred = clf.predict(X_test)
 
+    print 'R^2 =', clf.score(X_test, y_test, None) 
     print 'Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)) 
 
-    for x in range(len(X_test)):
-        print y_pred[x], 'vs', y_test[x]
-
     # for x in range(len(X_test)):
-        # print X_test[x][1], X_test[x]
+        # print y_pred[x], 'vs', y_test[x]
+
+    #for x in range(len(X_test)):
+        #print X_test[x]
 
 load_data()
 train()
