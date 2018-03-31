@@ -5,9 +5,12 @@ The purpose of this RESTful API is to perform machine learning analytics on cycl
 
 This server provides basic ordinary linear regression for time-speed graphs and clustering using k-means for aggregate ride speed-distance graphs. 
 
+## Wind Correlation Determination Algorithm
 
 There is also support with machine learning for wind correlation determination. First, standardization runs on historic segment efforts to prevent the data from being skewed from the athlete improving or getting worse over time. After, regression on several features including wind-speed, wind-direction is executed. Finally, it takes the post-processed correlation determined through the vector manipulation algorithm computed from the Node server.
 
+
+## Neural Networks and Multivariate Linear Regression Model
 
 A newer wind correlation determination algorithm uses multivariate linear regression with L2 regularization (ridge), and a 200 layer multilayer peceptron deep neural network using stochastic gradient descent. Both models use standardization on the data using a standard scaler. The features used are segment elevation change, ride distance, and a factor computed through vector manipulation.
 
