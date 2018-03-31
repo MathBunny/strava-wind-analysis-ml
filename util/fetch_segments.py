@@ -111,5 +111,4 @@ def main():
     print w.make_request('43.747194,-79.391819,2016-06-05T00:28:22')
     w.close()
 
-generate_wind_speed_training(60, 'training.txt')
-
+generate_wind_speed_training(65, 'training.txt')
