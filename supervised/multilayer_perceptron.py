@@ -7,7 +7,7 @@ from coordinate_utils import bearing_to_vector
 training_data = []
 cross_validation = []
 test_data = []
-clf = MLPRegressor(hidden_layer_sizes=(200, ), activation='relu',
+clf = MLPRegressor(hidden_layer_sizes=(4, ), activation='relu',
                    solver='sgd', alpha=0.0001, batch_size='auto',
                    learning_rate='adaptive', learning_rate_init=0.001,
                    power_t=0.5, max_iter=50000, shuffle=True, random_state=None,
