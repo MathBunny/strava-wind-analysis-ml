@@ -17,3 +17,4 @@ def bearing_to_vector(bearing):
     bearing = (bearing / 180.0) * math.pi
 
     return (math.sin(bearing) * x_multiplier, math.cos(bearing) * y_multiplier)
+    

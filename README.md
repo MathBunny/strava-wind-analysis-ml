@@ -12,7 +12,7 @@ There is also support with machine learning for wind correlation determination. 
 
 ## Neural Networks and Multivariate Linear Regression Model
 
-A newer wind correlation determination algorithm uses multivariate linear regression with L2 regularization (ridge), and a 200 layer multilayer peceptron deep neural network using stochastic gradient descent. Both models use standardization on the data using a standard scaler. The features used are segment elevation change, ride distance, and a factor computed through vector manipulation.
+A newer wind correlation determination algorithm uses multivariate linear regression with L2 regularization (ridge), and a 4 layer multilayer peceptron deep neural network using stochastic gradient descent. Both models use standardization on the data using a standard scaler. The features used are segment elevation change, ride distance, and a factor computed through vector manipulation.
 
 
 Following a similar algorithm as used originally, the physics model first converts `lat`/`long` pairs of the ride start/end into bearing. Then, it converts the bearing into a unit vector. We perform the last step as well for the wind bearing. After, the `x` and `y` components are added, and then net change is observed relative to the ride direction vector. Next, we sum the relative change in the `x` and `y` axes, and multiply it by the wind speed.

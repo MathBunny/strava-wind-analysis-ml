@@ -4,7 +4,7 @@ def modelRegression(data):
     y_arr = data.split('|')
 
     x_arr = []
-    for x in range (0, len(y_arr)):
+    for x in range(0, len(y_arr)):
         x_arr.append(x)
 
     speeds_x_train = x_arr
@@ -30,12 +30,12 @@ def modelRegression(data):
     return '|'.join(str(v) for v in ans)
 
 
-def regularizeData(speedData):
+def regularizeData(speed_data):
     # Step #1: Run linear regression on speed data to regularize data
-    y_arr = speedData.split('|')
+    y_arr = speed_data.split('|')
 
     x_arr = []
-    for x in range (0, len(y_arr)):
+    for x in range(0, len(y_arr)):
         x_arr.append(x)
 
     speeds_x_train = x_arr
@@ -50,7 +50,7 @@ def regularizeData(speedData):
     m = regr.coef_[0]
     b = regr.intercept_
 
-    speeds = map(lambda x: float(x), speedData.split('|'))
+    speeds = map(lambda x: float(x), speed_data.split('|'))
 
     # Step #2: Regularize data
     for x in range(0, len(speeds)):
@@ -61,9 +61,9 @@ def regularizeData(speedData):
     return speeds
 
 
-def windRegression(speedData, correlationData, candidate):
+def windRegression(speed_data, correlationData, candidate):
     # Run linear regression on speed data to regularize data
-    speeds = regularizeData(speedData)
+    speeds = regularizeData(speed_data)
     correlations = correlationData.split('|')
     # Schwartzian Transform
     correlations, speeds = zip(*sorted(zip(correlations, speeds)))
