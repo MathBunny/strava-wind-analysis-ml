@@ -24,3 +24,6 @@ def windRegression(data):
 def kmeansClustering(data):
     param = data.split('&')
     return kmeansRides.clusterActivities(param[0], int(param[1]))
+
+if __name__ == '__main__':
+      app.run(host='0.0.0.0', port=5000)
